@@ -11,3 +11,5 @@ Link to [Budget Track Github page](https://github.com/ksfallon/Budget-Tracker).
 ## 1. Section
 
 Adding functionality
+
+Licensed under the [MIT License](https://choosealicense.com/licenses/mit/#).
