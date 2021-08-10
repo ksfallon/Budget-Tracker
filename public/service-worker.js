@@ -6,7 +6,8 @@ const FILES_TO_CACHE = [
     '/index.html',
     '/index.js',
     '/style.css',
-    '/db.js'
+    '/db.js',
+    //ADD MANIFEST HERE
     
 ]
 
@@ -21,5 +22,22 @@ self.addEventListener('install', (event) => {
           .open(STATIC_CACHE)
           .then((cache) => cache.addAll(FILES_TO_CACHE))
           .then(self.skipWaiting())
-    )
+    );
+});
+
+self.addEventListener('fetch', (event) => {
+    if (event.request.url.includes('/api/')) {
+        event.respondWith(
+            caches.open(DATA_TIME)
+            .then(cache => {
+                return caches.open(DATA_TIME).then((response) => {
+                    cache.put(event.request, response.clone()).then(() => {
+                        console.log(response);
+                        return response;
+                        
+                    })
+                })
+            })
+        )
+    }
 })
