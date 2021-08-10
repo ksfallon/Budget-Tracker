@@ -18,6 +18,5 @@
     "start_url": "/",
     "description": "Allows you to see your earnings and spendings in real time",
     "background_color": "#01579b",
-    "theme_color": "#ffffff",
-    "theme-color": "#ffffff"
+    "theme_color": "#808080"
   }
