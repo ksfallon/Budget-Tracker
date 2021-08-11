@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 mongoose.connect(
-  "mongodb+srv://kfallon_86:hfs47bk3NUMbJ8R@clusterfallon.plz0q.mongodb.net/budget?retryWrites=true&w=majority" || "mongodb://localhost/budget", {
+  process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
