@@ -1,24 +1,21 @@
 //indexedDB HERE
 let db;
-let budgetVersion
-// create a new db request for a "BudgetDB" database.
-const request = window.indexedDB.open("BudgetDB", budgetVersion || 21);
+// let budgetVersion
+// create a new db request for a "budget" database. its version 1 in our indexedDB
+const request = window.indexedDB.open("budget", 1) // const request = window.indexedDB.open("budget", budgetVersion || 21);
 
-request.onupgradeneeded = (event) {
-  // create object store called "BudgetStore" and set autoIncrement to true
-    const {oldVersion} = event;
-    const newVersion = event.newVersion || db.version;
+request.onupgradeneeded = ({target}) => {
+  // create object store inside of our indexed.DB
 
-    console.log(`DB Updated from version ${oldVersion} to ${newVersion}`)
+    db = target.result
 
-    db = event.target.result
-
-    db.createObjectStore("BudgetStore", 
-    {keypath: "listID", auto_increment:true});
+    // This creates an object store alled 'BudgetStorage'
+    db.createObjectStore("BudgetNew", 
+    {keypath: "listID", auto_increment:true}); //keypath can be used to query on and we want auto_increment to be TRUE
 
 };
 
-request.onsuccess = function (event) {
+request.onsuccess = (event) => {
 db = event.target.result;
 
 //need to make sure to have function called CHECK_DATABASE which will send data to backend once online
@@ -35,15 +32,17 @@ const saveRecord = (record) => {
   // create a transaction on the pending db with readwrite access
   // access your pending object store
   // add record to your store with add method.
-  const transaction = db.transaction(["BudgetStore"], "readwrite");
-  const myBudegetStore = transaction.objectStore("BudgetStore");
-  myBudegetStore.add(record);
+  console.log("is anything going through? ", record);
+  const transaction = db.transaction(["BudgetNew"], "readwrite");
+  const BudgetStore = transaction.objectStore("BudgetNew");
+  BudgetStore.add(record);
 }
 
 const checkDatabase = () => {
-  // open a transaction on your pending db
-  // access your pending object store
-  // get all records from store and set to a variable
+  // open a transaction on your pending db, access your pending object store and get all records from store and set to a variable
+  const transaction = db.transaction(["BudgetNew"], "readwrite");
+  const BudgetStore = transaction.objectStore("BudgetNew");
+  const getAll = BudgetStore.getAll
 
     getAll.onsuccess = function () {
         if (getAll.result.length > 0) {
@@ -60,9 +59,7 @@ const checkDatabase = () => {
           // if successful, open a transaction on your pending db
           // access your pending object store
           // clear all items in your store
-          //transaction;
-          //store;
-        //   store.clear();
+        store.clear();
         });
         }
     };

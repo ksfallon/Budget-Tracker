@@ -7,8 +7,7 @@ const FILES_TO_CACHE = [
     '/index.js',
     '/style.css',
     '/db.js',
-    //ADD MANIFEST HERE
-    
+    '/manifest.webmanifest'
 ]
 
 const STATIC_CACHE = 'static-cache-v1'; // holds all of our webpages that will render
@@ -19,9 +18,9 @@ const DATA_TIME = 'data-cache-v1'; // hold all of the data thats entered - any c
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches
-          .open(STATIC_CACHE)
-          .then((cache) => cache.addAll(FILES_TO_CACHE))
-          .then(self.skipWaiting())
+            .open(STATIC_CACHE)
+            .then((cache) => cache.addAll(FILES_TO_CACHE))
+            .then(self.skipWaiting())
     );
 });
 
