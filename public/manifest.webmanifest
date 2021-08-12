@@ -16,7 +16,7 @@
     "orientation": "portrait",
     "display": "standalone",
     "start_url": "/",
-    "description": "Allows you to see your earnings and spendings in real time",
+    "description": "Allows you to update your earnings and spendings in real time - ON or OFF line.",
     "background_color": "#01579b",
     "theme_color": "#808080"
   }
