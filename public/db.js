@@ -6,9 +6,7 @@ const request = window.indexedDB.open("budget", 1) // const request = window.ind
 
 request.onupgradeneeded = ({target}) => {
   // create object store inside of our indexed.DB
-
     db = target.result
-
     // This creates an object store alled 'BudgetStorage'
     db.createObjectStore("BudgetNew", 
     {keypath: "listID", auto_increment:true}); //keypath can be used to query on and we want auto_increment to be TRUE
