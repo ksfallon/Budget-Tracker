@@ -52,7 +52,9 @@ self.addEventListener("fetch", (event) => {
                 .then((cache) => {
                     return fetch(event.request)
                         .then((response) => {
-                            cache.put(event.request.url, response.clone()); //saying not supported
+                            if (response.status === 200) {
+                                cache.put(event.request.url, response.clone()); //saying not supported
+                            }
                             return response;
                         })
                         .catch(() => caches.match(event.request));
