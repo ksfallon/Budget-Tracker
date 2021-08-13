@@ -27,13 +27,12 @@ request.onerror = function (event) {
 };
 
 const saveRecord = (record) => {
-  // create a transaction on the pending db with readwrite access
-  // access your pending object store
-  // add record to your store with add method.
+  // create a transaction on the pending db with readwrite access. access your pending object store. add record to your store with add method.
   console.log("is anything going through? ", record);
   const transaction = db.transaction(["BudgetNew"], "readwrite");
-  const BudgetStore = transaction.objectStore("BudgetNew");
+  // const BudgetStore = transaction.objectStore("BudgetNew");
   BudgetStore.add(record);
+  console.log("is anything going through still? ", record);
 }
 
 const checkDatabase = () => {
