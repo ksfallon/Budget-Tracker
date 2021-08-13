@@ -30,9 +30,13 @@ const saveRecord = (record) => {
   // create a transaction on the pending db with readwrite access. access your pending object store. add record to your store with add method.
   console.log("is anything going through? ", record);
   const transaction = db.transaction(["BudgetNew"], "readwrite");
-  // const BudgetStore = transaction.objectStore("BudgetNew");
-  BudgetStore.add(record);
-  console.log("is anything going through still? ", record);
+  const BudgetStore = transaction.objectStore("BudgetNew");
+  console.log("is anything going through still? ", BudgetStore);
+  BudgetStore.add(record).then( (data) => {
+    console.log("DATA", data)
+  }).catch((error) => {
+    console.log("ERR", error)
+  })
 }
 
 const checkDatabase = () => {
