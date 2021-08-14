@@ -29,7 +29,28 @@ The following sections will explain what each file does and why it is necessary 
 - You can also set the orientation and display. I chose portrait (for orientation) and standalone (for display) because these two parameters give the PWA the look and the layout of an app and different to just a regular webpage in a browser.
 - I gave a brief "description" about what the Budget App does, and I also chose "background_color" and "theme_color". That give a top border to distinguish it from a regular browser page.
 
-## 3. IndexedDb database - db.js
+## 3. IndexedDB database - db.js
+The indexedDB is a place to store incoming data in the cache instead of local storage. Service workers cannot work with local storage but can work with indexedDB.
+
+- For this webpage the indexedDB is only needed to cache data when the webpage is offline. While its offline the user can input budget information that is first held in indexedDB and then added to the online database (MongoDB) when the webpage is back online.
+
+- The first portion of the code is to open the *"budget"* database and create an object store inside the indexedDB called *"BudgetNew"* with a keypath called *listID*.
+
+- The two main functions in the db.js file are: 
+
+- The *saveRecord()* function which: 
+    - creates a transaction on the pending db with readwrite access. 
+    - access the pending object store. 
+    - Add record to your store with add method.
+- The *checkDatabase()* 
+    - open a transaction on your pending db
+    - access your pending object store and get all records from store 
+    - set to a variable
+              // if successful, open a transaction on your pending db
+          // access your pending object store
+          // clear all items in your store
+
+The last line is a window event listener to check when the app goes back online, go to the checkDatabase function.
 ## 4. Service Worker
 - The service-worker runs separately from the main brower and is used to retrieve informtaion from the cache, to cache information or data and also for certain network requests. 
 - That is why it is necessary for the PWA because it holds all of the information that appears while online, and can display that information while offline - this includes database information when connected to an online database and indexedDB for offline caching.
