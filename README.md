@@ -44,11 +44,8 @@ The indexedDB is a place to store incoming data in the cache instead of local st
     - Add record to your store with add method.
 - The *checkDatabase()* 
     - open a transaction on your pending db
-    - access your pending object store and get all records from store 
-    - set to a variable
-              // if successful, open a transaction on your pending db
-          // access your pending object store
-          // clear all items in your store
+    - access your pending object store and get all records from store and set to a variable
+    - if successful, open a transaction on your pending db access your pending object store clear all items in your store
 
 The last line is a window event listener to check when the app goes back online, go to the checkDatabase function.
 ## 4. Service Worker
@@ -60,19 +57,19 @@ The last line is a window event listener to check when the app goes back online,
 2. Static to cache
 3. Data to cache.
 
-1. The Files to cache are all of the files for the front-end of the website. Such as: icons, index.html, index.js, style.css, the "/", the manifest and any database. The paths to these files are held in an array equal to this const **FILES_TO_CACHE** (the name can be different, this is just a common variable name for this array.)
+1. The Files to cache are all of the files for the front-end of the website. Such as: icons, index.html, index.js, style.css, the "/", the manifest and any database. The paths to these files are held in an array equal to this const **urlsToCache** (the name can be different, this is just a common variable name for this array.)
 
-2. Static to cache holds all of the webpages that will render. My const name is **STATIC_CACHE**
+2. Static to cache holds all of the webpages that will render. My const name is **CACHE_NAME**
 
-3. Data to cache holds any data that is entered.My const name is **DATA_CACHE_TIME**
+3. Data to cache holds any data that is entered.My const name is **DATA_CACHE_NAME**
 
 Service workers are asynchronous and rely on promises. All of the functions use then statements, (which could also be async awaits). Also most of the functions in the service worker start with *self* which is used to tell the service worker to do something.
 
-- The first function `self.addEventListener("install"`... tells the service worker that if the website is offline, then open the **STATIC_CACHE** and load the webpages that way. Then add all of the files from ***FILES_TO_CACHE**
+- The first function `self.addEventListener("install"`... tells the service worker that if the website is offline, then open the **CACHE_NAME** and load the webpages that way. Then add all of the files from ***urlsToCache**
 
-- The second function `self.addEventListener("activate"` ... checks to see if there are old caches that do not match the current caches of **STATIC_CACHE, DATA_CACHE_TIME** and if there are caches that are no longer current, they are mapped through and deleted.
+<!-- - The second function `self.addEventListener("activate"` ... checks to see if there are old caches that do not match the current caches of **CACHE_NAME**, **DATA_CACHE_NAME** and if there are caches that are no longer current, they are mapped through and deleted. -->
 
-- The third function `self.addEventListener("fetch",` ... is used to handle api routes when the GET, POST, PUT or DELETE happens offline. The data is cached as a response instead of being sent to the server or online database.
+- The second function `self.addEventListener("fetch",` ... is used to handle api routes when the GET, POST, PUT or DELETE happens offline. The data is cached as a response instead of being sent to the server or online database.
 
 - the final function `event.respondWith` deals with all other requests, and what to do if a request is not in cache (need to make a network request and put that response in cache.)
 
