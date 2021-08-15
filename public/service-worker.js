@@ -5,7 +5,7 @@ const FILES_TO_CACHE = [   //const to cache are all the ones under PUBLIC
   "/",
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png",
-  // "/index.html",
+  "/index.html",
   "/index.js",
   "/style.css",
   "/db.js",
