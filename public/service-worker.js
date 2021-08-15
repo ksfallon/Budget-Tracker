@@ -1,9 +1,10 @@
-const CACHE_NAME = 'my-site-cache-v1';
+const CACHE_NAME = 'static-cache-v2';
 const DATA_CACHE_NAME = 'data-cache-v1';
 ​
 const urlsToCache = [
   '/',
   '/db.js',
+  '/index.html',
   '/index.js',
   '/manifest.json',
   '/styles.css',
@@ -11,17 +12,37 @@ const urlsToCache = [
   '/icons/icon-512x512.png',
 ];
 ​
-self.addEventListener('install', function (event) {
+self.addEventListener('install', (event) => {
   // Perform install steps
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      console.log('Opened cache');
-      return cache.addAll(urlsToCache).catch(err => console.log('err!!!!!! ', err));
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('Successfully Opened Cache');
+      return cache.addAll(urlsToCache)
+      .catch(err => console.log('There is an error! ', err));
     })
   );
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  // const currentCaches = [STATIC_CACHE, DATA_CACHE_TIME]
+  event.waitUntil(
+      caches.keys().then(cacheData => {
+          return Promise.all(
+            cacheData.map(data => {
+              if (data !== DATA_CACHE_NAME && data !== CACHE_NAME) {
+                //map through to delete old data
+                console.log("", data)
+                return caches.delete(data)
+              }
+            })
+        );
+    })
+);
+self.clients.claim();
 });
 ​
-self.addEventListener('fetch', function (event) {
+self.addEventListener('fetch', (event) => {
   // cache all get requests to /api routes
   if (event.request.url.includes('/api/')) {
     event.respondWith(
@@ -42,15 +63,15 @@ self.addEventListener('fetch', function (event) {
               return cache.match(event.request);
             });
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log("Error from fetch function", err))
     );
 ​
     return;
   }
 ​
   event.respondWith(
-    fetch(event.request).catch(function () {
-      return caches.match(event.request).then(function (response) {
+    fetch(event.request).catch(() => {
+      return caches.match(event.request).then((response) => {
         if (response) {
           return response;
         }
@@ -63,19 +84,11 @@ self.addEventListener('fetch', function (event) {
   );
 });
 
-// self.addEventListener("activate", (event) => {
-//   const currentCaches = [STATIC_CACHE, DATA_CACHE_TIME]
-//   event.waitUntil(
-//       caches.keys().then(cacheData => {
-//           return cacheData.filter(
-//               cacheData => !currentCaches.includes(cacheData)
-//           );
-//       }).then(cachesToDelete => {
-//           return Promise.all(
-//               cachesToDelete.map(deleteThisCache => {
-//                   return caches.delete(deleteThisCache)
-//               })
-//           )
-//       }).then(() => self.clients.claim())
-//   )
-// });
+//changed
+// line 1 - 'static-cache-v2'
+// line 7 - added 'index.html'
+// line 15 - es 6 function
+// line 18 - es 6 function
+// line 24 - added self.skipWaiting()
+// line 27 - put "activate" function back in
+
