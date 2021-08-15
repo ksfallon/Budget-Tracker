@@ -10,7 +10,7 @@ const request = indexedDB.open('budget', 1);
 ​
 request.onupgradeneeded = ({ target }) => {
   const db = target.result;
-  db.createObjectStore('pending', { keyPath: "listID", autoIncrement: true });
+  db.createObjectStore('pending', { autoIncrement: true });
 };
 ​
 request.onsuccess = ({ target }) => {
@@ -36,7 +36,7 @@ const saveRecord = (record) => {
 const checkDatabase = () => {
   const transaction = db.transaction(["pending"], "readwrite");
   const store = transaction.objectStore("pending");
-  const getAll = store.getAll();
+  const getAll = store.getAll(); // to grab 
 ​
   getAll.onsuccess = () => {
     if (getAll.result.length > 0) {
@@ -54,8 +54,9 @@ const checkDatabase = () => {
           const transaction = db.transaction(["pending"], "readwrite");
           const store = transaction.objectStore("pending");
           store.clear();
+          console.log("If i appear, offline data was moved to Mongo Atlas DB")
         })
-        .catch((err) => console.error("Error while deleting", err));
+        .catch((err) => {console.error("Error when grabbing offline data when back online", err)});
     }
   };
 }
