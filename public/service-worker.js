@@ -1,4 +1,4 @@
-const CACHE_NAME = 'static-cache-v2';
+const CACHE_NAME = 'static-cache-v1'; //had v2, changed to v1
 const DATA_CACHE_NAME = 'data-cache-v1';
 const urlsToCache = [
   '/',
@@ -6,6 +6,7 @@ const urlsToCache = [
   '/index.html',
   '/index.js',
   '/manifest.json',
+  '/service-worker.js', //added, maybe its the problem
   '/styles.css',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
@@ -13,6 +14,7 @@ const urlsToCache = [
 ​
 self.addEventListener('install', (event) => {
   // Perform install steps
+  // should i add an event.waitUntil for the DATA_CACHE_NAME ?
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('Successfully Opened Cache');
@@ -31,7 +33,7 @@ self.addEventListener("activate", (event) => {
             cacheData.map(data => {
               if (data !== DATA_CACHE_NAME && data !== CACHE_NAME) {
                 //map through to delete old data
-                console.log("", data)
+                console.log("old cached data is REMOVED", data)
                 return caches.delete(data)
               }
             })
