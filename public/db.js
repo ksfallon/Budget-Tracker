@@ -48,9 +48,9 @@ const saveRecord = (record) => {
 
 const checkDatabase = () => {
   // open a transaction on your pending db, access your pending object store and get all records from store and set to a variable
-  const transaction = db.transaction(["BudgetNew"], "readwrite");
-  const BudgetStore = transaction.objectStore("BudgetNew");
-  const getAll = BudgetStore.getAll
+  const transaction = db.transaction(["pendingBudget"], "readwrite");
+  const budgetStore = transaction.objectStore("pendingBudget");
+  const getAll = budgetStore.getAll
 
     getAll.onsuccess = function () {
         if (getAll.result.length > 0) {
@@ -62,11 +62,13 @@ const checkDatabase = () => {
                     'Content-Type': 'application/json',
                 },
         })
-        .then((response) => response.json())
+        .then((response) => {
+          return response.json()
+        })
         .then(() => {
           // if successful, open a transaction on your pending db
-          // access your pending object store
-          // clear all items in your store
+        const transaction = db.transaction(["pendingBudget"], "readwrite");
+        const budgetStore = transaction.objectStore("pendingBudget");
         store.clear();
         });
         }
