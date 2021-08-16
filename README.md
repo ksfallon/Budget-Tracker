@@ -85,6 +85,11 @@ Service workers are asynchronous and rely on promises. All of the functions use 
 This code registers the service worker to the server.
 
 ## 5. Screen Shots 
+- Here is a Screen Shot when the PWA is Offline and items are being stored in the IndexedDB
+![Offline](https://github.com/ksfallon/Budget-Tracker/blob/main/assets/offline_with_indexDB.png?raw=true)
+
+- Here is a Screen Shot when the PWA is back Online and items are being stored in the MongoDB now
+![Online](https://github.com/ksfallon/Budget-Tracker/blob/main/assets/online_added_data.png?raw=true)
 
 offline data caching.
 
