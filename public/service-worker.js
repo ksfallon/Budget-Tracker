@@ -1,6 +1,6 @@
 const CACHE_NAME = 'my-site-cache-v1';
 const DATA_CACHE_NAME = 'data-cache-v1';
-​
+
 const urlsToCache = [
   '/',
   '/db.js',
@@ -10,7 +10,7 @@ const urlsToCache = [
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
 ];
-​
+
 self.addEventListener('install', function (event) {
   // Perform install steps
   event.waitUntil(
@@ -20,7 +20,7 @@ self.addEventListener('install', function (event) {
     })
   );
 });
-​
+
 self.addEventListener('fetch', function (event) {
   // cache all get requests to /api routes
   if (event.request.url.includes('/api/')) {
@@ -34,7 +34,7 @@ self.addEventListener('fetch', function (event) {
               if (response.status === 200) {
                 cache.put(event.request.url, response.clone());
               }
-​
+
               return response;
             })
             .catch((err) => {
@@ -44,10 +44,10 @@ self.addEventListener('fetch', function (event) {
         })
         .catch((err) => console.log(err))
     );
-​
+    
     return;
   }
-​
+  
   event.respondWith(
     fetch(event.request).catch(function () {
       return caches.match(event.request).then(function (response) {
