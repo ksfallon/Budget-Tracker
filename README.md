@@ -7,7 +7,7 @@ Link to [Budget Track Github page](https://github.com/ksfallon/Budget-Tracker).
 ### **TABLE OF CONTENTS:**
 1. [Overview of Budget PWA](#1-overview-of-budget-pwa)
 2. [Manifest webmanifest](#2-manifest-webmanifest)
-3. [IndexedDB database - db js](#3-indexeddb-database-db-js)
+3. [IndexedDB database db js](#3-indexeddb-database-db-js)
 4. [Service Worker](#4-service-worker)
 5. [Screen Shots](#5-screen-shots)
 
@@ -29,7 +29,7 @@ The following sections will explain what each file does and why it is necessary 
 - You can also set the orientation and display. I chose portrait (for orientation) and standalone (for display) because these two parameters give the PWA the look and the layout of an app and different to just a regular webpage in a browser.
 - I gave a brief "description" about what the Budget App does, and I also chose "background_color" and "theme_color". That give a top border to distinguish it from a regular browser page.
 
-## 3. IndexedDB database - db js
+## 3. IndexedDB database db js
 The indexedDB is a place to store incoming data in the cache instead of local storage. Service workers cannot work with local storage but can work with indexedDB.
 
 - For this webpage the indexedDB is only needed to cache data when the webpage is offline. While its offline the user can input budget information that is first held in indexedDB and then added to the online database (MongoDB) when the webpage is back online.
