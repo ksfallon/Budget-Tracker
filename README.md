@@ -22,14 +22,14 @@ I created these files and then I needed to call them in the index.html file. man
 
 The following sections will explain what each file does and why it is necessary to have for the PWA to be created and work-offine successfully.
 
-## 2. Manifest.webmanifest
+## 2. Manifest webmanifest
 - The manifest is needed to make sure that the PWA is discoverable in the brower.
 - It is a file that is composed of an object that gives the parameters for the layout/look of the Progressive Web App (PWA) - how it will appear to the user.
 - This includes the app name, a short name (nick name), and the icons that will give it the app look.
 - You can also set the orientation and display. I chose portrait (for orientation) and standalone (for display) because these two parameters give the PWA the look and the layout of an app and different to just a regular webpage in a browser.
 - I gave a brief "description" about what the Budget App does, and I also chose "background_color" and "theme_color". That give a top border to distinguish it from a regular browser page.
 
-## 3. IndexedDB database - db.js
+## 3. IndexedDB database - db js
 The indexedDB is a place to store incoming data in the cache instead of local storage. Service workers cannot work with local storage but can work with indexedDB.
 
 - For this webpage the indexedDB is only needed to cache data when the webpage is offline. While its offline the user can input budget information that is first held in indexedDB and then added to the online database (MongoDB) when the webpage is back online.
