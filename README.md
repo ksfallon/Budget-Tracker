@@ -6,8 +6,8 @@ Link to [Budget Track Github page](https://github.com/ksfallon/Budget-Tracker).
 
 ### **TABLE OF CONTENTS:**
 1. [Overview of Budget PWA](#1-overview-of-budget-pwa)
-2. [Manifest.webmanifest](#2-manifest)
-3. [IndexedDB database: db.js](#3-indexeddb-database-db-js)
+2. [Manifest.webmanifest](#2-manifest-webmanifest)
+3. [IndexedDB database: db.js](#3-indexeddb-database-db.js)
 4. [Service Worker](#1-service-worker)
 5. [Screen Shots](#5-screen-shots)
 
